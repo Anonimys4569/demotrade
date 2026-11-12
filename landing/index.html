@@ -1,0 +1,397 @@
+<!doctype html>
+<html lang="uk">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="theme-color" content="#0b0e11" />
+<meta name="description" content="DemoTrade - демо-трейдинг криптовалют: $10,000 віртуальних грошей, 30 монет, спот і ф'ючерси. Онлайн, на Windows, Android та iPhone." />
+<title>DemoTrade - демо-трейдинг криптовалют</title>
+<link rel="icon" type="image/png" href="img/icon.png" />
+<style>
+:root{--bg:#0b0e11;--panel:#14181d;--panel2:#1b2027;--line:#242a33;--text:#eaecef;--muted:#8a93a3;--green:#16c784;--red:#f6465d;--accent:#8b6cff;--accent2:#4f8cff;--warn:#f0b90b}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--text);font:16px/1.55 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;-webkit-font-smoothing:antialiased}
+a{color:inherit;text-decoration:none}
+img{max-width:100%;display:block}
+.wrap{max-width:1120px;margin:0 auto;padding:0 20px}
+.grad{background:linear-gradient(135deg,var(--accent),var(--accent2));-webkit-background-clip:text;background-clip:text;color:transparent}
+
+/* шапка */
+header{position:sticky;top:0;z-index:10;background:rgba(11,14,17,.86);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
+.nav{display:flex;align-items:center;gap:26px;height:64px}
+.logo{display:flex;align-items:center;gap:10px;font-weight:800;font-size:19px}
+.logo img{width:34px;height:34px;border-radius:10px}
+.nav nav{display:flex;gap:24px;margin-left:auto;font-size:14.5px;color:var(--muted);font-weight:600}
+.nav nav a:hover{color:var(--text)}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;height:48px;padding:0 22px;border-radius:13px;font-weight:800;font-size:15.5px;border:0;cursor:pointer;transition:transform .12s,filter .12s;white-space:nowrap}
+.btn:hover{filter:brightness(1.1)}
+.btn:active{transform:scale(.97)}
+.btn.primary{background:linear-gradient(135deg,var(--accent),var(--accent2));color:#fff}
+.btn.ghost{background:var(--panel2);color:var(--text);border:1px solid var(--line)}
+.btn.sm{height:40px;padding:0 16px;font-size:14px;border-radius:11px}
+.btn.block{width:100%}
+.btn.off{opacity:.45;pointer-events:none}
+
+/* герой */
+.hero{position:relative;overflow:hidden;padding:72px 0 40px}
+.hero::before{content:"";position:absolute;inset:-200px -100px auto;height:640px;background:radial-gradient(50% 60% at 25% 40%,rgba(139,108,255,.28),transparent 70%),radial-gradient(40% 50% at 80% 30%,rgba(79,140,255,.22),transparent 70%);pointer-events:none}
+.hero .wrap{position:relative;display:grid;grid-template-columns:1.1fr .9fr;gap:40px;align-items:center}
+.pill{display:inline-flex;align-items:center;gap:8px;padding:6px 14px;border-radius:99px;background:rgba(22,199,132,.12);color:var(--green);font-weight:700;font-size:13px}
+.pill i{width:7px;height:7px;border-radius:50%;background:currentColor}
+h1{font-size:clamp(36px,5.4vw,60px);line-height:1.06;letter-spacing:-.03em;margin:18px 0 18px}
+.lead{font-size:18.5px;color:#b6bdca;max-width:540px;margin:0 0 28px}
+.cta{display:flex;flex-wrap:wrap;gap:12px}
+.facts{display:flex;flex-wrap:wrap;gap:28px;margin-top:36px}
+.facts b{display:block;font-size:26px;letter-spacing:-.02em}
+.facts span{color:var(--muted);font-size:13.5px}
+.phones{position:relative;height:600px}
+.phone{position:absolute;width:270px;border-radius:38px;border:8px solid #1d222a;background:#000;overflow:hidden;box-shadow:0 30px 80px rgba(0,0,0,.6),0 0 0 1px #2c333d}
+.phone.a{right:150px;top:10px;z-index:2}
+.phone.b{right:0;top:70px;transform:scale(.88);transform-origin:top right;opacity:.9}
+
+section{padding:72px 0;scroll-margin-top:64px}
+h2{font-size:clamp(28px,3.6vw,40px);letter-spacing:-.025em;margin:0 0 10px;line-height:1.15}
+.sub{color:var(--muted);margin:0 0 36px;max-width:640px;font-size:17px}
+
+/* можливості */
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:18px;padding:22px}
+.card h3{margin:14px 0 6px;font-size:18px}
+.card p{margin:0;color:var(--muted);font-size:14.5px}
+.ic{width:46px;height:46px;border-radius:14px;display:grid;place-items:center;font-size:22px;background:var(--panel2)}
+
+/* скріншоти */
+.shots{display:grid;grid-template-columns:repeat(4,1fr);gap:18px}
+.shots figure{margin:0}
+.shots img{border-radius:22px;border:1px solid var(--line)}
+.shots figcaption{text-align:center;color:var(--muted);font-size:14px;margin-top:10px;font-weight:600}
+
+/* завантаження */
+.dl{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+.dl .card{display:flex;flex-direction:column;gap:10px}
+.dl .card.me{border-color:var(--accent);box-shadow:0 0 0 1px var(--accent) inset}
+.dl h3{margin:6px 0 0}
+.dl p{flex:1}
+.tag{align-self:flex-start;font-size:11.5px;font-weight:800;letter-spacing:.04em;padding:4px 9px;border-radius:7px;background:rgba(139,108,255,.15);color:var(--accent)}
+.tag.you{background:rgba(22,199,132,.14);color:var(--green)}
+.fine{font-size:12.5px;color:var(--muted);text-align:center}
+
+/* інструкції */
+.tabs{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:20px}
+.tabs button{font:inherit;font-weight:700;font-size:15px;color:var(--muted);background:var(--panel);border:1px solid var(--line);padding:10px 18px;border-radius:12px;cursor:pointer}
+.tabs button.on{color:#fff;background:var(--accent);border-color:var(--accent)}
+.guide{display:none}
+.guide.on{display:block}
+.guide h3{font-size:20px;margin:0 0 4px}
+.guide .how{color:var(--muted);margin:0 0 18px;font-size:15px}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+ol.steps{list-style:none;counter-reset:st;margin:0;padding:0;display:flex;flex-direction:column;gap:13px}
+ol.steps li{counter-increment:st;display:flex;gap:13px;font-size:15.5px}
+ol.steps li::before{content:counter(st);flex:none;width:28px;height:28px;border-radius:50%;display:grid;place-items:center;font-weight:800;font-size:14px;color:#fff;background:linear-gradient(135deg,var(--accent),var(--accent2));margin-top:-1px}
+ol.steps b{color:#fff}
+ol.steps a,.note a,.faq a{color:var(--accent2);text-decoration:underline}
+.note{margin:18px 0 0;padding:13px 15px;border-radius:13px;background:var(--panel2);border:1px solid var(--line);font-size:14.5px;color:#b6bdca}
+.note.warn{border-color:rgba(240,185,11,.45)}
+.note b{color:var(--text)}
+
+/* питання */
+.faq details{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:0 18px;margin-bottom:10px}
+.faq summary{cursor:pointer;font-weight:700;padding:16px 0;list-style:none;display:flex;justify-content:space-between;gap:12px}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary::after{content:"+";color:var(--muted);font-size:20px;line-height:1}
+.faq details[open] summary::after{content:"−"}
+.faq p{margin:0 0 16px;color:#b6bdca;font-size:15px}
+
+.final{text-align:center;padding:64px 20px;border-radius:26px;background:radial-gradient(120% 140% at 0 0,#2a2160,#171b2e 45%,#12161c);border:1px solid #2b2f45}
+.final h2{margin-bottom:12px}
+.final p{color:#b6bdca;margin:0 0 24px}
+footer{border-top:1px solid var(--line);padding:28px 0 40px;color:var(--muted);font-size:13.5px;text-align:center}
+
+@media (max-width:900px){
+  .nav nav{display:none}
+  .nav .btn{margin-left:auto}
+  .hero{padding-top:44px}
+  .hero .wrap{grid-template-columns:1fr}
+  .phones{height:470px;max-width:420px;margin:0 auto;width:100%}
+  .phone{width:210px;border-radius:30px;border-width:6px}
+  .phone.a{right:auto;left:0}
+  .grid,.dl{grid-template-columns:1fr 1fr}
+  .shots{grid-template-columns:1fr 1fr}
+  .two{grid-template-columns:1fr}
+  section{padding:52px 0}
+}
+@media (max-width:560px){
+  .grid,.dl{grid-template-columns:1fr}
+  .cta .btn{width:100%}
+}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}.btn{transition:none}}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap nav">
+    <a class="logo" href="#top"><img src="img/icon.png" alt="" />DemoTrade</a>
+    <nav>
+      <a href="#features">Можливості</a>
+      <a href="#download">Завантажити</a>
+      <a href="#install">Як встановити</a>
+      <a href="#faq">Питання</a>
+    </nav>
+    <a class="btn primary sm" href="app/">Торгувати онлайн</a>
+  </div>
+</header>
+
+<main id="top">
+<div class="hero">
+  <div class="wrap">
+    <div>
+      <span class="pill"><i></i>Безкоштовно · без реєстрації</span>
+      <h1>Вчися трейдингу <span class="grad">без ризику</span> втратити гроші</h1>
+      <p class="lead">DemoTrade - це демо-біржа криптовалют. Отримуєш $10,000 віртуальних грошей і торгуєш 30 найпопулярнішими монетами за реальними цінами: спот, ф’ючерси з плечем, ордери, як на справжній біржі.</p>
+      <div class="cta">
+        <a class="btn primary" href="app/">Торгувати онлайн</a>
+        <a class="btn ghost" href="#download">Завантажити додаток</a>
+      </div>
+      <div class="facts">
+        <div><b>$10,000</b><span>стартовий баланс</span></div>
+        <div><b>30</b><span>монет</span></div>
+        <div><b>до 100x</b><span>плече на ф’ючерсах</span></div>
+      </div>
+    </div>
+    <div class="phones" aria-hidden="true">
+      <div class="phone b"><img src="img/futures.jpg" alt="" /></div>
+      <div class="phone a"><img src="img/spot.jpg" alt="" /></div>
+    </div>
+  </div>
+</div>
+
+<section id="features">
+  <div class="wrap">
+    <h2>Що можна робити в DemoTrade</h2>
+    <p class="sub">Усе, що є на справжній біржі, тільки гроші віртуальні. Помилки нічого не коштують.</p>
+    <div class="grid">
+      <div class="card"><div class="ic">💵</div><h3>$10,000 на старті</h3><p>Віртуальний баланс видається одразу. Програв усе - скинь рахунок одним натиском і почни заново.</p></div>
+      <div class="card"><div class="ic">🪙</div><h3>30 популярних монет</h3><p>Bitcoin, Ethereum, Solana, Dogecoin, Pepe та інші. Пошук, обрані монети, сортування за ростом, падінням і обсягом.</p></div>
+      <div class="card"><div class="ic">📈</div><h3>Реальні ціни</h3><p>З інтернетом ціни та графіки беруться наживо з Binance. Без інтернету вмикається симуляція, і торгувати можна далі.</p></div>
+      <div class="card"><div class="ic">🛒</div><h3>Спот-торгівля</h3><p>Купуй і продавай монети за ринковою ціною або став лімітний ордер на потрібну ціну. Кнопки 25, 50, 75 і 100% балансу.</p></div>
+      <div class="card"><div class="ic">⚡</div><h3>Ф’ючерси з плечем</h3><p>Лонг і шорт із плечем від 1x до 100x. Заробляй і на рості, і на падінні. Є ціна ліквідації, як на справжній біржі.</p></div>
+      <div class="card"><div class="ic">🎯</div><h3>Тейк-профіт і стоп-лосс</h3><p>Задай рівні, і позиція закриється сама, коли ціна до них дійде. Можна закрити вручну повністю або наполовину.</p></div>
+      <div class="card"><div class="ic">🕯️</div><h3>Свічкові графіки</h3><p>Інтервали від 1 хвилини до 1 дня, стакан ордерів, максимум, мінімум та обсяг за 24 години.</p></div>
+      <div class="card"><div class="ic">💼</div><h3>Гаманець і статистика</h3><p>Загальний баланс, прибуток за весь час, графік балансу, усі монети, відкриті позиції та історія угод.</p></div>
+      <div class="card"><div class="ic">🔒</div><h3>Без реєстрації і сервера</h3><p>Не потрібні пошта чи пароль. Прогрес зберігається на твоєму пристрої і лишається після перезапуску. Є резервна копія.</p></div>
+    </div>
+  </div>
+</section>
+
+<section style="padding-top:0">
+  <div class="wrap">
+    <h2>Як це виглядає</h2>
+    <p class="sub">Темний дизайн у стилі великих бірж. Однаковий на телефоні, комп’ютері та в браузері.</p>
+    <div class="shots">
+      <figure><img src="img/markets.jpg" alt="Екран ринків зі списком монет" loading="lazy" /><figcaption>Ринки</figcaption></figure>
+      <figure><img src="img/spot.jpg" alt="Екран спот-торгівлі з графіком" loading="lazy" /><figcaption>Спот</figcaption></figure>
+      <figure><img src="img/futures.jpg" alt="Екран ф’ючерсів з вибором плеча" loading="lazy" /><figcaption>Ф’ючерси</figcaption></figure>
+      <figure><img src="img/wallet.jpg" alt="Екран активів з балансом" loading="lazy" /><figcaption>Активи</figcaption></figure>
+    </div>
+  </div>
+</section>
+
+<section id="download">
+  <div class="wrap">
+    <h2>Завантажити DemoTrade</h2>
+    <p class="sub">Вибери свій пристрій. Нижче є покрокова інструкція для кожного.</p>
+    <div class="dl">
+      <div class="card" data-os="web">
+        <span class="tag">НАЙШВИДШЕ</span>
+        <h3>🌐 Онлайн</h3>
+        <p>Працює прямо в браузері на будь-якому пристрої. Нічого завантажувати не треба.</p>
+        <a class="btn primary block" href="app/">Відкрити</a>
+      </div>
+      <div class="card" data-os="windows">
+        <span class="tag" hidden></span>
+        <h3>🖥️ Windows</h3>
+        <p>Програма для ПК з ярликом на робочому столі. Windows 10 і 11.</p>
+        <a class="btn ghost block" data-file="DemoTrade-Setup.exe" href="downloads/DemoTrade-Setup.exe" download>Завантажити .exe</a>
+        <a class="fine" href="#install" data-go="windows">Як встановити</a>
+      </div>
+      <div class="card" data-os="android">
+        <span class="tag" hidden></span>
+        <h3>🤖 Android</h3>
+        <p>Файл APK для телефона чи планшета. Android 7 і новіше.</p>
+        <a class="btn ghost block" data-file="DemoTrade.apk" href="downloads/DemoTrade.apk" download>Завантажити .apk</a>
+        <a class="fine" href="#install" data-go="android">Як встановити</a>
+      </div>
+      <div class="card" data-os="ios">
+        <span class="tag" hidden></span>
+        <h3>🍎 iPhone</h3>
+        <p>Найпростіше - додати на екран прямо з цього сайту. Є також файл IPA.</p>
+        <a class="btn ghost block" href="#install" data-go="ios">Як встановити</a>
+        <a class="fine" data-file="DemoTrade.ipa" href="downloads/DemoTrade.ipa" download>Завантажити .ipa</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="install" style="padding-top:0">
+  <div class="wrap">
+    <h2>Як встановити</h2>
+    <p class="sub">Покроково для кожного пристрою.</p>
+    <div class="tabs" role="tablist">
+      <button data-tab="ios">iPhone</button>
+      <button data-tab="android">Android</button>
+      <button data-tab="windows">Windows</button>
+      <button data-tab="web">Онлайн</button>
+    </div>
+
+    <div class="guide" id="g-ios">
+      <div class="two">
+        <div class="card">
+          <h3>Спосіб 1: через цей сайт</h3>
+          <p class="how">Рекомендуємо. Без кабеля, комп’ютера та Apple ID.</p>
+          <ol class="steps">
+            <li><span>Відкрий цей сайт на iPhone у браузері <b>Safari</b>.</span></li>
+            <li><span>Натисни <b>«Торгувати онлайн»</b> - відкриється сам додаток.</span></li>
+            <li><span>Натисни кнопку <b>«Поділитися»</b> (квадрат зі стрілкою вгору) внизу екрана.</span></li>
+            <li><span>Прогорни список і вибери <b>«На початковий екран»</b>.</span></li>
+            <li><span>Натисни <b>«Додати»</b> у правому верхньому куті.</span></li>
+            <li><span>Закрий Safari і запускай <b>DemoTrade</b> з іконки на екрані.</span></li>
+          </ol>
+          <p class="note">Додаток відкривається на весь екран, працює без інтернету після першого запуску і сам оновлюється. Перевстановлювати його не треба.</p>
+        </div>
+        <div class="card">
+          <h3>Спосіб 2: файл IPA через комп’ютер</h3>
+          <p class="how">Справжній додаток, але його треба оновлювати кожні 7 днів.</p>
+          <ol class="steps">
+            <li><span>На ПК з Windows завантаж <a data-file="DemoTrade.ipa" href="downloads/DemoTrade.ipa" download>DemoTrade.ipa</a>.</span></li>
+            <li><span>Встанови <b>iTunes</b> та <b>iCloud</b> із сайту Apple (не з Microsoft Store).</span></li>
+            <li><span>Встанови програму <a href="https://sideloadly.io" target="_blank" rel="noopener">Sideloadly</a>.</span></li>
+            <li><span>Підключи iPhone кабелем і натисни на телефоні <b>«Довіряти»</b>.</span></li>
+            <li><span>Перетягни файл IPA у Sideloadly, введи свій <b>Apple ID</b> і натисни <b>Start</b>.</span></li>
+            <li><span>На iPhone: Параметри → Основні → <b>VPN та керування пристроєм</b> → довіряй своєму Apple ID.</span></li>
+            <li><span>Увімкни Параметри → Приватність і безпека → <b>Режим розробника</b>.</span></li>
+          </ol>
+          <p class="note warn"><b>Кожні 7 днів</b> повторюй крок 5. Не видаляй додаток перед цим, став поверх - тоді баланс збережеться.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="guide" id="g-android">
+      <div class="card">
+        <h3>Встановлення на Android</h3>
+        <p class="how">Займає близько хвилини.</p>
+        <ol class="steps">
+          <li><span>Натисни <a data-file="DemoTrade.apk" href="downloads/DemoTrade.apk" download>Завантажити DemoTrade.apk</a> на телефоні.</span></li>
+          <li><span>Відкрий завантажений файл (у шторці сповіщень або в папці «Завантаження»).</span></li>
+          <li><span>Якщо телефон спитає, дозволь <b>встановлення з цього джерела</b> і повернись назад.</span></li>
+          <li><span>Натисни <b>«Встановити»</b>. Якщо Play Protect покаже попередження, вибери «Все одно встановити».</span></li>
+          <li><span>Відкрий <b>DemoTrade</b> і торгуй.</span></li>
+        </ol>
+        <p class="note">Нову версію став поверх старої, не видаляючи додаток - прогрес залишиться. Можна й без APK: відкрий «Торгувати онлайн» у Chrome → меню ⋮ → «Встановити додаток».</p>
+      </div>
+    </div>
+
+    <div class="guide" id="g-windows">
+      <div class="card">
+        <h3>Встановлення на Windows</h3>
+        <p class="how">Для Windows 10 і 11.</p>
+        <ol class="steps">
+          <li><span>Натисни <a data-file="DemoTrade-Setup.exe" href="downloads/DemoTrade-Setup.exe" download>Завантажити DemoTrade-Setup.exe</a>.</span></li>
+          <li><span>Запусти завантажений файл.</span></li>
+          <li><span>Якщо з’явиться синє вікно <b>«Windows захистив ваш ПК»</b>, натисни <b>«Докладніше»</b> → <b>«Виконати в будь-якому випадку»</b>.</span></li>
+          <li><span>Програма встановиться сама й одразу відкриється. На робочому столі з’явиться ярлик <b>DemoTrade</b>.</span></li>
+        </ol>
+        <p class="note">Попередження з’являється, бо програма не має платного цифрового підпису. Прогрес зберігається на комп’ютері й не зникає після оновлення.</p>
+      </div>
+    </div>
+
+    <div class="guide" id="g-web">
+      <div class="card">
+        <h3>Онлайн у браузері</h3>
+        <p class="how">Підходить для будь-якого пристрою.</p>
+        <ol class="steps">
+          <li><span>Натисни <a href="app/">Торгувати онлайн</a>.</span></li>
+          <li><span>Усе, можна торгувати. Реєстрація не потрібна.</span></li>
+        </ol>
+        <p class="note">Прогрес зберігається в цьому браузері на цьому пристрої. Якщо очистити дані сайту, він зникне, тому час від часу роби резервну копію: Активи → Налаштування → Резервна копія.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="faq" style="padding-top:0">
+  <div class="wrap faq">
+    <h2>Часті питання</h2>
+    <p class="sub">Коротко про головне.</p>
+    <details><summary>Це справжні гроші?</summary><p>Ні. Усі гроші в DemoTrade віртуальні. Тут не можна ні поповнити рахунок, ні вивести кошти. Додаток створений для навчання і тренування.</p></details>
+    <details><summary>Звідки беруться ціни?</summary><p>Коли є інтернет, ціни та графіки приходять наживо з публічних даних біржі Binance (значок LIVE). Без інтернету вмикається симуляція: ціни рухаються самі від останньої відомої (значок СИМУЛЯЦІЯ).</p></details>
+    <details><summary>Де зберігається мій прогрес?</summary><p>Тільки на твоєму пристрої. Сервера немає, тому на телефоні, комп’ютері та в браузері прогрес окремий. Перенести його можна через Активи → Налаштування → Резервна копія.</p></details>
+    <details><summary>Чи спрацюють ордери, коли додаток закритий?</summary><p>Лімітні ордери, тейк-профіт, стоп-лосс і ліквідації перевіряються, поки додаток відкритий. Після наступного запуску вони виконаються за поточною ціною.</p></details>
+    <details><summary>Що таке ліквідація?</summary><p>На ф’ючерсах із плечем позиція закривається примусово, якщо ціна пішла проти тебе настільки, що збиток з’їв усю маржу. Чим більше плече, тим ближче ціна ліквідації. При 10x це приблизно 10% руху ціни, при 100x менше ніж 1%.</p></details>
+    <details><summary>Чому Windows або Android попереджають про небезпеку?</summary><p>Додаток не опублікований у магазинах і не має платного підпису розробника, тому система попереджає про невідоме джерело. Це стандартне попередження для таких програм.</p></details>
+  </div>
+</section>
+
+<section style="padding-top:0">
+  <div class="wrap">
+    <div class="final">
+      <h2>Спробуй просто зараз</h2>
+      <p>$10,000 уже чекають на рахунку. Реєстрація не потрібна.</p>
+      <a class="btn primary" href="app/">Торгувати онлайн</a>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="wrap">DemoTrade · демо-трейдинг із віртуальними грошима · не є фінансовою порадою · графіки: TradingView Lightweight Charts</div>
+</footer>
+
+<script>
+(function () {
+  var ua = navigator.userAgent;
+  var os = /iPhone|iPad|iPod/.test(ua) || (ua.indexOf('Macintosh') > -1 && navigator.maxTouchPoints > 1) ? 'ios'
+    : /Android/.test(ua) ? 'android'
+    : /Windows/.test(ua) ? 'windows' : 'web';
+
+  // позначаємо картку для пристрою відвідувача
+  var card = document.querySelector('.dl .card[data-os="' + os + '"]');
+  if (card && os !== 'web') {
+    card.classList.add('me');
+    var tag = card.querySelector('.tag');
+    tag.hidden = false;
+    tag.className = 'tag you';
+    tag.textContent = 'ТВІЙ ПРИСТРІЙ';
+  }
+
+  // вкладки інструкцій
+  var tabs = document.querySelectorAll('.tabs button');
+  function show(name) {
+    tabs.forEach(function (b) { b.classList.toggle('on', b.dataset.tab === name); });
+    document.querySelectorAll('.guide').forEach(function (g) { g.classList.toggle('on', g.id === 'g-' + name); });
+  }
+  tabs.forEach(function (b) { b.addEventListener('click', function () { show(b.dataset.tab); }); });
+  document.querySelectorAll('[data-go]').forEach(function (a) {
+    a.addEventListener('click', function () { show(a.dataset.go); });
+  });
+  show(os);
+
+  // які файли вже зібрані: вимикаємо кнопки для тих, яких ще немає
+  fetch('downloads/files.json', { cache: 'no-store' })
+    .then(function (r) { return r.ok ? r.json() : null; })
+    .then(function (files) {
+      if (!Array.isArray(files)) return;
+      document.querySelectorAll('[data-file]').forEach(function (a) {
+        if (files.indexOf(a.dataset.file) > -1) return;
+        a.removeAttribute('href');
+        a.classList.add('off');
+        a.title = 'Файл ще не зібрано';
+        if (a.classList.contains('btn')) a.textContent = 'Файл ще не зібрано';
+      });
+    })
+    .catch(function () {});
+})();
+</script>
+</body>
+</html>
